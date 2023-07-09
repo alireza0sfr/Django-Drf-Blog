@@ -24,6 +24,7 @@ class PostFactory(DjangoModelFactory, BaseFactory):
     content = Faker('sentence')
     status = choice(PostStatus.choices)[0]
     category = SubFactory(CategoryFactory)
+    image = Faker('image')
 
     class Meta:
         model = 'blog.Post'
