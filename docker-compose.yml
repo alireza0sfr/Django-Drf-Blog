@@ -1,0 +1,44 @@
+version: "3.9"
+services:
+  backend:
+    build: .
+    container_name: backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./core:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY=django-insecure-q+dt#g!@--8vr9=)9!1$g1b+#21x#wa7!c#5j!ld=u4j5pxz$y
+      - DEBUG=True
+  smtp4dev:
+    image: rnwood/smtp4dev:v3
+    restart: always
+    ports:
+      # Change the number before : to the port the web interface should be accessible on
+      - '5000:80'
+      # Change the number before : to the port the SMTP server should be accessible on
+      - '25:25'
+      # Change the number before : to the port the IMAP server should be accessible on
+      - '143:143'
+    volumes:
+        - smtp4dev-data:/smtp4dev
+    environment:
+      - ServerOptions__HostName=smtp4dev
+
+  master:
+    image: locustio/locust
+    ports:
+     - "8089:8089"
+    volumes:
+      - ./core/locust:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --master -H http://backend:8000
+  
+  worker:
+    image: locustio/locust
+    volumes:
+      - ./core/locust:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --worker --master-host master
+
+volumes:
+  smtp4dev-data:

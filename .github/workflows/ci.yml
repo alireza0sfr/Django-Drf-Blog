@@ -1,0 +1,21 @@
+name: DRF Blog CI
+
+on:
+  push:
+    branches: [ "prod" ]
+  pull_request:
+    branches: [ "prod" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup docker-compose
+      run: docker-compose up -d
+      
+    - name: Run Tets
+      run: docker exec backend sh -c "pytest ."

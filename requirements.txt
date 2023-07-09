@@ -1,0 +1,35 @@
+# General
+asgiref==3.5.2
+Django==4.1.1
+sqlparse==0.4.2
+Pillow
+
+# DRF
+djangorestframework
+djangorestframework-camel-case
+djangorestframework-simplejwt
+
+# Third Party
+python-decouple
+markdown
+django-filter
+drf-yasg[validation]
+django-mail-templated
+django-phonenumber-field[phonenumbers]
+django-cors-headers
+
+# Refactoring & Lint
+black
+flake8
+
+# Test
+pytest
+pytest-django
+pytest-cov
+factory_boy
+
+# Background Process & Cache
+django-redis
+
+# Deployment
+gunicorn
