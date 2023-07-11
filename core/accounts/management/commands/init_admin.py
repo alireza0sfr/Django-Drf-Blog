@@ -8,7 +8,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if User.objects.filter(is_superuser=True).count() == 0:
             User.objects.create_superuser(
-                username='admin', password='!@#QWE123qwe')
+                email='a@a.com', password='!@#QWE123qwe')
             print('Admin user created!')
 
         else:
