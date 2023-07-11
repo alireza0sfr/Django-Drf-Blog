@@ -1,21 +1,31 @@
-name: DRF Blog CI
+# migration docs: https://docs.github.com/en/actions/migrating-to-github-actions/migrating-from-gitlab-cicd-to-github-actions
+name: Django Project Deploy
 
+# define which repo to listen to for trigger
 on:
   push:
-    branches: [ "prod" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "prod" ]
+    branches: [ main ]
 
+# list of all jobs
 jobs:
 
-  build:
-
+  Deploy:
+    # if: ${{ always() && contains(join(needs.*.result, ','), 'success') }} 
+    name: Deploy
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
-    - name: Setup docker-compose
-      run: docker-compose up -d
-      
-    - name: Run Tets
-      run: docker exec backend sh -c "pytest ."
+    - name: Connect and Execute Commands
+      uses: appleboy/ssh-action@master
+      with:
+        username: ${{secrets.USERNAME}}
+        password: ${{secrets.PASSWORD}}
+        host: ${{secrets.HOST}}
+        port: ${{secrets.PORT}}
+        script: |
+          cd ${{secrets.PROJECT_PATH}}
+          docker-compose -f docker-compose-prod.yml stop
+          git pull
+          docker-compose -f docker-compose-prod.yml restart

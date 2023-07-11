@@ -21,7 +21,7 @@ services:
     expose:
       - "8000"
     environment:
-      - SECRET_KEY=test
+      - SECRET_KEY=django-insecure-q+dt#g!@--8vr9=)9!1$g1b+#21x#wa7!c#5j!ld=u4j5pxz$y
       - DEBUG=False
     depends_on:
       - redis

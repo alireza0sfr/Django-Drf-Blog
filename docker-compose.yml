@@ -9,7 +9,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - SECRET_KEY=django-insecure-q+dt#g!@--8vr9=)9!1$g1b+#21x#wa7!c#5j!ld=u4j5pxz$y
+      - SECRET_KEY=test
       - DEBUG=True
   smtp4dev:
     image: rnwood/smtp4dev:v3
