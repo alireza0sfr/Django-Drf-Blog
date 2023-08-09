@@ -12,7 +12,6 @@
 
 
 ### Overview
-- [Overview](#overview)
 - [Features](#features)
 - [Setup](#setup)
 - [options](#options)
